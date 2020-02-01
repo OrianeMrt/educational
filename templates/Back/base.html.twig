@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title> {% block title %}{% endblock %} - Educat</title>
+        {% include '_partials/listcss/css.html.twig' %}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        {% include 'Back/_partials/navbar/navbar.html.twig' %}
+        {% include '_partials/alert/notification.html.twig' %}
+        {% block body %}{% endblock %}
+        {% include '_partials/listjs/js.html.twig' %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'Back/base.html.twig' %}
+
+{% block title %} Profil de {{ c.title }} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-4 mb-3">
+                <div class="card">
+                    <div class="img-wrapper">
+                        <img class="card-img-top img-category" src="{{ c.picture }}" alt="{{ c.title }}">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><a>{{ c.title }}</a></h4>
+                        <p class="card-text ">{{ c.description | slice(0,200) }}... </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

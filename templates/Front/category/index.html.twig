@@ -1,0 +1,27 @@
+{% extends 'Front/base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+    <h1 class="display-4 text-center mt-5 text-uppercase mb-5" >
+        Liste des catégories
+    </h1>
+    <div class="container">
+        <div class="row">
+            {% for c in category %}
+                <div class="col-lg-4 mb-3">
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img class="card-img-top img-category" src="{{ c.picture }}" alt="{{ c.title }}">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title"><a>{{ c.title }}</a></h4>
+                            <p class="card-text ">{{ c.description | slice(0,200) }}... </p>
+                            <a href="#" class="btn btn-primary">Listes des travaux</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'Back/base.html.twig' %}
+
+{% block title %} Profil de {{ user.fullname }} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            {% if user.gender == "Monsieur" %}
+                <img src="{{ asset('img/svg/man.svg') }}" alt="avatar de {{ user.fullname | lower }}">
+            {% else %}
+                <img src="{{ asset('img/svg/woman.svg') }}" alt="avatar de {{ user.fullname | lower }}">
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <h1 class="display-4 mb-3">Bienvenue {{ user.fullname | lower }}</h1>
+            <ul class="list-unstyled">
+                <li>
+                    <span style="font-size: 24px">Civilité: {{ user.gender }} </span>
+                </li>
+                <li>
+                    <span style="font-size: 24px">Prénom: {{ user.firstname }} </span>
+                </li>
+                <li>
+                    <span style="font-size: 24px">Nom: {{ user.lastname }} </span>
+                </li>
+                <li>
+                    <span style="font-size: 24px">Vous êtes un(e):
+                        {% for ur in user.roles %}
+                            {% if ur == "ROLE_ADMIN" %}
+                                Professeur
+                            {% else %}
+                                Etudiant(e)
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                </li>
+                <li>
+                    <span style="font-size: 24px">Membre depuis: {{ user.createdAt | date('d/m/Y') }} </span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+{% endblock %}

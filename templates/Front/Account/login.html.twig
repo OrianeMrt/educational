@@ -1,0 +1,59 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}connexion{% endblock %}
+
+{% block body %}
+    <div class="container mb-100 p-5">
+        <div class="row white z-depth-1-half">
+            <div class="col-lg pl-0">
+                <img src="https://picsum.photos/id/180/1000/1000" alt="img-login" class="img-login ">
+            </div>
+            <div class="col-lg-6 pl-0 pr-0 text-center p-4 m-login mr-2">
+                <!-- Default form login -->
+                <form action="{{ path('account_login') }}" method="post">
+                    <p class="h4 mb-4">Connexion</p>
+
+                    {% if hasError %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-ban"></i> Une erreur est survenue, le nom d'utilisateur ou le mot de passe est incorrect
+                        </div>
+                    {% endif %}
+
+                    <!-- Email -->
+                    <input type="email" id="email" class="form-control mb-4" placeholder="Adresse email" name="_username" value="{{ username }}" required />
+                    <!-- Password -->
+                    <div class="input-group mb-4">
+                        <input type="password" id="password" class="form-control password" placeholder="Mot de passe" name="_password" data-toggle="password" required />
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i id="eye" class="fas fa-eye"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Sign in button -->
+                    <button class="btn btn-success btn-block my-4" type="submit"><i class="fas fa-unlock-alt"></i> Se connecter</button>
+
+                    <!-- Register -->
+                    <p>Pas encore membre ?
+                        <a href="{{ path('account_register') }}" class="blue-text">Inscription</a>
+                    </p>
+
+                </form>
+                <!-- Default form login -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        // password visibility
+        let inputPassword = $('input#password');
+        $('.input-group-append').click(function()  {
+            $('#eye').toggleClass('fas fa-eye-slash').toggleClass('fas fa-eye');
+            if(inputPassword.attr('type') === "password")
+                inputPassword.attr('type','text');
+            else if(inputPassword.attr('type') === "text")
+                inputPassword.attr('type','password');
+        });
+    </script>
+{% endblock %}

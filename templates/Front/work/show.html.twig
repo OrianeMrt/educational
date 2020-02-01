@@ -1,0 +1,109 @@
+{% extends('Front/base.html.twig') %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-6">
+            <h1 class="text-center ml-4 mr-4">{{ work.title }}</h1>
+            <div class="card m-3">
+                <div class="m-5 d-flex justify-content-center">
+                    <img src="{{ asset('img/document.png') }}" class="card-img-top w-50" alt="...">
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ work.user.fullname }}</h5>
+                    <p>{{ work.description }}</p>
+                    <a href="{{ vich_uploader_asset(work, 'fileFile') }}" target="_blank" class="btn btn-secondary">View
+                        Document</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            {% if is_granted('ROLE_USER') %}
+                <div class="d-flex justify-content-end align-items-end mt-5 mb-5">
+                    <div class="d-inline" id="like_button">
+                        {% if work.user.id != user.id %}
+                            <i class="far fa-thumbs-up" style="
+                                    width:40px;
+                            {% if isLiked is defined and isLiked == true %}
+                                    display: none;
+                            {% endif %}
+                                    height:40px;" id="unliked"></i>
+                            <i class="fas fa-thumbs-up" style="width:40px;
+                            {% if isLiked is defined and isLiked == false %}
+                                    display: none;
+                            {% endif %}
+                                    height:40px; z-index:50;" id="liked"></i>
+                        {% endif %}
+                    </div>
+                    <p class="ml-3" id="like-number">{{ likeNb }}{% if work.user.id == user.id %} Likes{% endif %}</p>
+                </div>
+            {% endif %}
+            {% if work.mark %}
+                <h3 class="text-center ml-4 mr-4">Note : {{ work.mark }}</h3>
+            {% elseif is_granted('ROLE_ADMIN') %}
+                <h3 class="text-center ml-4 mr-4">Noter le travail : </h3>
+                {% for message in app.flashes('warning') %}
+                    <div class="alert alert-danger">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+                <form class="d-flex justify-content-center align-items-center" action="{{ path('work.mark',{'id': work.id}) }}" method="post">
+                    <input class="form-control" type="number" placeholder="Note" name="mark" min="0" max="20">
+                    <button class="btn btn-link btn-outline-dark ">&rsaquo;</button>
+                </form>
+            {% else %}
+                <h3>Ce travail attend une note....</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        {% if isLiked is defined and isLiked == true %}
+            var isLike = true;
+        {% elseif isLiked is defined %}
+            var isLike = false;
+        {% endif %}
+        $(document).ready(function () {
+            var like_button = $('#like_button');
+            var like = $('#liked');
+            var unlike = $('#unliked');
+
+            like_button.hover(function () {
+                if (isLike) {
+                    like.css('display', 'none');
+                    unlike.css('display', '');
+                } else {
+                    like.css('display', '');
+                    unlike.css('display', 'none');
+                }
+            }, function(){
+                if (isLike) {
+                    like.css('display', '');
+                    unlike.css('display', 'none');
+                } else {
+                    like.css('display', 'none');
+                    unlike.css('display', '');
+                }
+            });
+
+            // Add or Remove like
+            like_button.on("click", function () {
+                $.ajax({
+                    url: '{{ path('work.like', {'id': work.id }) }}',
+                    success: function (data) {
+                        console.log(data['isLiked']);
+                        if (data['isLiked']) {
+                            like.css('display', '');
+                            unlike.css('display', 'none');
+                        } else {
+                            like.css('display', 'none');
+                            unlike.css('display', '');
+                        }
+                        isLike = data['isLiked'];
+                        $('#like-number').html(data['likeNb']);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

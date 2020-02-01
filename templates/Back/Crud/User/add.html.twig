@@ -1,0 +1,24 @@
+{% extends 'Back/base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="container mb-5 border p-5 rgba-white-strong mt-5">
+        {{ form_start(form) }}
+        <p class="h4 mb-4 text-center"><i class="fas fa-user-edit"></i> {{ title }}</p>
+        {{ form_row(form.role) }}
+        {{ form_row(form.gender) }}
+        <div class="row">
+            <div class="col-md">
+                {{ form_row(form.firstname) }}
+            </div>
+            <div class="col-md">
+                {{ form_row(form.lastname) }}
+            </div>
+        </div>
+        {{ form_widget(form) }}
+        <button class="btn btn-success my-4 btn-block" type="submit"><i class="fas fa-user-edit"></i> {{ title }}</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

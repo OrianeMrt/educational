@@ -1,0 +1,24 @@
+{% extends('Front/base.html.twig') %}
+
+{% block body %}
+    <h1 class="text-center">Mes travaux</h1>
+    <div class="row">
+        {% for work in works %}
+            <div class=" col-4">
+                <div class="card m-3">
+                    <div class="m-5">
+                        <img src="{{ asset('img/document.png') }}" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ work.title ~ ' - ' ~ work.user.fullname }}</h5>
+                        <a href="{{ path('work.show', {'id' : work.id }) }}" class="btn btn-secondary">View
+                            Work</a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <h3 class="text-center">Aucun travail n'est déposé</h3>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-end"><a href="{{ path('work.add') }}" class="btn btn-primary">Ajouter un travail...</a></div>
+{% endblock %}

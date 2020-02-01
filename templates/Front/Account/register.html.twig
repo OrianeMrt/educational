@@ -1,0 +1,23 @@
+{% extends 'Front/base.html.twig' %}
+
+{% block title %}S'incrire{% endblock %}
+
+{% block body %}
+    <div class="container m100 p-5">
+        <div class="row white z-depth-1-half">
+            <div class="col-lg pl-0">
+                <img src="https://picsum.photos/id/122/2000/2000.jpg" alt="img-register" class="img-register">
+            </div>
+            <div class="col-lg-6 pl-0 pr-0 p-5 mr-2">
+                <!-- Default form register -->
+                {{ form_start(form) }}
+                <p class="h4 mb-4 text-center">Inscription</p>
+                {{ form_widget(form) }}
+                <button class="btn btn-success my-4 btn-block" type="submit">Inscription</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

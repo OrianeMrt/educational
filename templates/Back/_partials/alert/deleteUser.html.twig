@@ -1,0 +1,20 @@
+{% extends 'Back/base.html.twig' %}
+
+{% block title %} Supprimé {% endblock %}
+
+{% block body %}
+    <div class="container m200 animated flipInX">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col-8 text-center border border-light p-5 rgba-white-strong">
+                <i class="fas fa-check-circle green-text fa-6x mb-5"></i>
+                <h2>Votre suppression à bien été confirmée !</h2>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <a href="{{ path('admin_users') }}" class="btn btn-primary float-right mt-5"><i class="fas fa-angle-right"></i> Revenir sur la liste des utilisateurs</a>
+    </div>
+{% endblock %}

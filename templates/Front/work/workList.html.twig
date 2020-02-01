@@ -1,0 +1,7 @@
+{% extends('Front/base.html.twig') %}
+
+{% block body %}
+    {% for work in works %}
+        {{ work.title }}
+    {% endfor %}
+{% endblock %}
